@@ -37,7 +37,7 @@ fdict = fa2dict(kmerfile)
 FNULL = open("/dev/null","w")
 for klen in sorted(set([len(x) for x in fdict.values()])):
 	print "Counting kmers with length=%s" % (klen)
-	subprocess.call("%s -nb-cores %s -file %s -kmer-size %s -out %s.k%s.h5 && %s -file %s.k%s.h5 -out %s.k%s.txt" % (dsk,threads,genomefile,klen,genomefile,klen,dsk2ascii,genomefile,klen,genomefile,klen),shell=True,stderr=FNULL,stdout=FNULL)
+	subprocess.call("%s -nb-cores %s -file %s -kmer-size %s -abundance-min 1 -out %s.k%s.h5 && %s -file %s.k%s.h5 -out %s.k%s.txt" % (dsk,threads,genomefile,klen,genomefile,klen,dsk2ascii,genomefile,klen,genomefile,klen),shell=True,stderr=FNULL,stdout=FNULL)
 
 FNULL.close()
 
