@@ -1,5 +1,10 @@
 import sys
 import subprocess
+import os.path
+
+scriptDir = os.path.dirname(os.path.realpath(__file__))
+dsk = "%s/dsk/build/bin/dsk" % scriptDir
+dsk2ascii = "%s/dsk/build/bin/dsk2ascii" % scriptDir
 
 def fa2dict(filename):
         fa_dict = {}
@@ -31,7 +36,7 @@ fdict = fa2dict(kmerfile)
 FNULL = open("/dev/null","w")
 for klen in sorted(set([len(x) for x in fdict.values()])):
 	print "Counting kmers with length=%s" % (klen)
-	subprocess.call("dsk -nb-cores %s -file %s -kmer-size %s -out %s.k%s.h5 && dsk2ascii -file %s.k%s.h5 -out %s.k%s.txt" % (threads,genomefile,klen,genomefile,klen,genomefile,klen,genomefile,klen),shell=True,stderr=FNULL,stdout=FNULL)
+	subprocess.call("%s -nb-cores %s -file %s -kmer-size %s -out %s.k%s.h5 && %s -file %s.k%s.h5 -out %s.k%s.txt" % (dsk,threads,genomefile,klen,genomefile,klen,dsk2ascii,genomefile,klen,genomefile,klen),shell=True,stderr=FNULL,stdout=FNULL)
 
 FNULL.close()
 
