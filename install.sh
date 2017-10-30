@@ -1,4 +1,4 @@
 cd dsk
 sh INSTALL
 cd ../
-echo $PWD
+echo "export PATH=$PWD:$PATH"> ~/.bashrc
